@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Registration</title>
+  <style>
+    :root{
+      --bg:#0f172a;           /* slate-900 */
+      --card:#111827;         /* gray-900 */
+      --muted:#94a3b8;        /* slate-400 */
+      --text:#e5e7eb;         /* gray-200 */
+      --ring:#22d3ee;         /* cyan-400 */
+      --accent:#6366f1;       /* indigo-500 */
+      --error:#ef4444;        /* red-500 */
+      --ok:#10b981;           /* emerald-500 */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% 10%, #0b1229 0%, var(--bg) 40%),
+                  radial-gradient(1000px 700px at 100% 0%, #11143a 0%, var(--bg) 45%);
+      color:var(--text);
+      display:grid; place-items:center; padding:24px;
+    }
+
+    .card{
+      width:100%; max-width: 720px; background:linear-gradient(160deg,#0b1023, var(--card));
+      border:1px solid rgba(148,163,184,.15); border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+
+    .header{ padding:28px 28px 14px; border-bottom:1px solid rgba(148,163,184,.15);}
+    .header h1{ margin:0; font-size: clamp(1.25rem, 2.4vw, 1.6rem); letter-spacing:.2px; }
+    .header p{ margin:.35rem 0 0; color:var(--muted); font-size:.95rem }
+
+    form{ padding:24px; display:grid; gap:16px; }
+
+    .row{ display:grid; grid-template-columns:1fr; gap:16px; }
+    @media (min-width:720px){ .row{ grid-template-columns: repeat(2, 1fr); } }
+
+    label{ display:block; font-size:.9rem; color:var(--muted); margin:0 0 .35rem; }
+
+    input, select{ width:100%; padding:12px 14px; background:#0b1023; color:var(--text);
+      border:1px solid rgba(148,163,184,.25); border-radius:12px; outline:none; transition:.2s border, .2s box-shadow;
+    }
+    input::placeholder{ color:#64748b; }
+
+    input:focus, select:focus{ border-color:var(--ring); box-shadow:0 0 0 4px rgba(34,211,238,.15); }
+
+    .hint{ font-size:.8rem; color:var(--muted); margin-top:.35rem; }
+
+    .checks{ display:flex; align-items:center; gap:10px; }
+    .checks input{ width:auto; accent-color: var(--accent); }
+
+    .actions{ display:flex; gap:12px; justify-content:flex-end; padding:6px 0 4px; }
+    button{
+      border:0; border-radius:12px; padding:12px 16px; cursor:pointer; font-weight:600;
+      background:var(--accent); color:white; box-shadow:0 6px 16px rgba(99,102,241,.35); transition: transform .05s ease-in;
+    }
+    button:hover{ filter:brightness(1.06); }
+    button:active{ transform: translateY(1px); }
+    button.secondary{ background:transparent; color:var(--text); border:1px solid rgba(148,163,184,.35); box-shadow:none; }
+
+    .footer{ padding:14px 24px 24px; color:var(--muted); font-size:.85rem; display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(148,163,184,.15); }
+
+    .error{ color:var(--error); font-size:.85rem; }
+    .success{ color:var(--ok); font-size:.95rem; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="card" role="region" aria-labelledby="title">
+    <div class="header">
+      <h1 id="title">Create your account</h1>
+      <p>Fill the form below to register. Fields marked * are required.</p>
+    </div>
+
+    <form id="regForm" novalidate>
+      <div class="row">
+        <div>
+          <label for="fullname">Full Name *</label>
+          <input id="fullname" name="fullname" type="text" placeholder="e.g., Pavan Kumar" required />
+        </div>
+        <div>
+          <label for="email">Email *</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="10-digit number" pattern="\\d{10}" />
+          <div class="hint">Digits only, no spaces.</div>
+        </div>
+        <div>
+          <label for="dob">Date of Birth</label>
+          <input id="dob" name="dob" type="date" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="country">Country</label>
+          <select id="country" name="country">
+            <option value="">Select country</option>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender">
+            <option value="">Prefer not to say</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Non-binary</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="password">Password *</label>
+          <input id="password" name="password" type="password" minlength="6" placeholder="At least 6 characters" required />
+        </div>
+        <div>
+          <label for="confirm">Confirm Password *</label>
+          <input id="confirm" name="confirm" type="password" minlength="6" required />
+        </div>
+      </div>
+
+      <div class="checks">
+        <input id="terms" name="terms" type="checkbox" required />
+        <label for="terms">I agree to the Terms & Privacy Policy *</label>
+      </div>
+
+      <div id="formMsg" class="error" role="alert" aria-live="polite"></div>
+
+      <div class="actions">
+        <button type="reset" class="secondary">Reset</button>
+        <button type="submit">Register</button>
+      </div>
+    </form>
+
+    <div class="footer">
+      <span>&copy; <span id="year"></span> Your Company</span>
+      <span id="status"></span>
+    </div>
+  </div>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('regForm');
+    const msg = document.getElementById('formMsg');
+    const status = document.getElementById('status');
+
+    function setMessage(text, ok=false){
+      msg.textContent = text;
+      msg.className = ok ? 'success' : 'error';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      setMessage(''); status.textContent = '';
+
+      // HTML5 validity check first
+      if(!form.checkValidity()){
+        setMessage('Please complete all required fields correctly.');
+        return;
+      }
+
+      const pwd = document.getElementById('password').value.trim();
+      const confirm = document.getElementById('confirm').value.trim();
+      if(pwd !== confirm){
+        setMessage('Passwords do not match.');
+        return;
+      }
+
+      const name = document.getElementById('fullname').value.trim();
+      setMessage(`Welcome, ${name || 'there'}! Registration successful.`, true);
+      status.textContent = 'Ready to go ✨';
+
+      // Example: collect values (replace with real submit)
+      const data = Object.fromEntries(new FormData(form).entries());
+      console.log('Form data to send:', data);
+
+      // Reset form after a short delay (optional)
+      setTimeout(() => form.reset(), 800);
+    });
+  </script>
+</body>
+</html>
